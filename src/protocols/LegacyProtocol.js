@@ -239,12 +239,12 @@ class LegacyProtocol extends Protocol {
         for (i = 0, l = add.length; i < l; i++) {
             cell = add[i];
             writeCellData[this.protocol](writer, source, this.protocol, cell,
-                true, true, true, true, true, true);
+                true, true, true, true, true, true, true);
         }
         for (i = 0, l = upd.length; i < l; i++) {
             cell = upd[i];
             writeCellData[this.protocol](writer, source, this.protocol, cell,
-                false, cell.sizeChanged, cell.posChanged, cell.colorChanged, cell.nameChanged, cell.skinChanged);
+                false, cell.sizeChanged, cell.posChanged, cell.colorChanged, cell.nameChanged, cell.skinChanged, cell.rankChanged);
         }
         writer.writeUInt32(0);
 
@@ -452,7 +452,7 @@ const writeCellData = {
  * @param {boolean} includeName
  * @param {boolean} includeSkin
  */
-function writeCellData4(writer, source, protocol, cell, includeType, includeSize, includePos, includeColor, includeName, includeSkin) {
+function writeCellData4(writer, source, protocol, cell, includeType, includeSize, includePos, includeColor, includeName, includeSkin, includeRank) {
     writer.writeUInt32(cell.id);
     writer[protocol === 4 ? "writeInt16" : "writeInt32"](cell.x);
     writer[protocol === 4 ? "writeInt16" : "writeInt32"](cell.y);
@@ -482,7 +482,7 @@ function writeCellData4(writer, source, protocol, cell, includeType, includeSize
  * @param {boolean} includeName
  * @param {boolean} includeSkin
  */
-function writeCellData6(writer, source, protocol, cell, includeType, includeSize, includePos, includeColor, includeName, includeSkin) {
+function writeCellData6(writer, source, protocol, cell, includeType, includeSize, includePos, includeColor, includeName, includeSkin, includeRank) {
     writer.writeUInt32(cell.id);
     writer.writeInt32(cell.x);
     writer.writeInt32(cell.y);
@@ -495,11 +495,13 @@ function writeCellData6(writer, source, protocol, cell, includeType, includeSize
     if (includeName) flags |= 0x08;
     if (cell.isAgitated) flags |= 0x10;
     if (cell.type === 3) flags |= 0x20;
+    if (includeRank) flags |= 0x40;
     writer.writeUInt8(flags);
 
     if (includeColor) writer.writeColor(cell.color);
     if (includeSkin) writer.writeZTStringUTF8(cell.skin);
     if (includeName) writer.writeZTStringUTF8(cell.name);
+    if (includeRank) writer.writeUInt16(cell.rank);
 }
 /**
  * @param {Writer} writer
@@ -513,7 +515,7 @@ function writeCellData6(writer, source, protocol, cell, includeType, includeSize
  * @param {boolean} includeName
  * @param {boolean} includeSkin
  */
-function writeCellData11(writer, source, protocol, cell, includeType, includeSize, includePos, includeColor, includeName, includeSkin) {
+function writeCellData11(writer, source, protocol, cell, includeType, includeSize, includePos, includeColor, includeName, includeSkin, includeRank) {
     writer.writeUInt32(cell.id);
     writer.writeInt32(cell.x);
     writer.writeInt32(cell.y);
