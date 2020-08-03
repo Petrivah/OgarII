@@ -36,12 +36,14 @@ class Cell {
         this.color = color;
         this.name = null;
         this.skin = null;
+        this.rank = null;
 
         this.posChanged =
             this.sizeChanged =
             this.colorChanged =
             this.nameChanged =
             this.skinChanged =
+            this.rankChanged =
             false;
     }
 
@@ -70,7 +72,7 @@ class Cell {
      */
     get shouldUpdate() {
         return this.posChanged || this.sizeChanged ||
-            this.colorChanged || this.nameChanged || this.skinChanged;
+            this.colorChanged || this.nameChanged || this.skinChanged || this.rankChanged;
     }
 
     get age() { return (this.world.handle.tick - this.birthTick) * this.world.handle.stepMult; }
@@ -102,6 +104,10 @@ class Cell {
     set name(value) { this._name = value; this.nameChanged = true; }
 
     /** @type {string} */
+    get rank() { return this._rank; }
+    set rank(value) { this._rank = value; this.rankChanged = true; }
+
+    /** @type {string} */
     get skin() { return this._skin; }
     set skin(value) { this._skin = value; this.skinChanged = true; }
 
@@ -126,6 +132,7 @@ class Cell {
             this.colorChanged =
             this.nameChanged =
             this.skinChanged =
+            this.rankChanged =
             false;
     }
     /**

@@ -13,6 +13,7 @@ class PlayerCell extends Cell {
         this.owner = owner;
         this.name = owner.cellName || "";
         this.skin = owner.cellSkin || "";
+        this.rank = owner.cellRank || 0;
         this._canMerge = false;
     }
 
@@ -62,6 +63,8 @@ class PlayerCell extends Cell {
             this.skin = this.owner.cellSkin;
         if (this.color !== this.owner.cellColor)
             this.color = this.owner.cellColor;
+        if (this.rank !== this.owner.cellRank)
+            this.rank = this.owner.cellRank;
 
         const settings = this.world.settings;
         let delay = settings.playerNoMergeDelay;
