@@ -2,7 +2,7 @@ const FFA = require('./FFA');
 
 /** @param {Cell} cell */
 function checkRealPlayer(cell) {
-    return cell.owner && cell.owner.router.type === 'connection';
+    return cell.type === 0 && cell.owner && cell.owner.router.type === 'connection';
 }
 
 /** @param {Cell} cell */
