@@ -12,7 +12,8 @@ const DefaultProtocols = [
 const DefaultGamemodes = [
     require("../src/gamemodes/FFA"),
     require("../src/gamemodes/Teams"),
-    require("../src/gamemodes/LastManStanding")
+    require("../src/gamemodes/LastManStanding"),
+    require("../src/gamemodes/Rank")
 ];
 
 /** @returns {DefaultSettings} */
