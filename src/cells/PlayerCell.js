@@ -35,7 +35,7 @@ class PlayerCell extends Cell {
             const delay = this.world.settings.playerNoCollideDelay;
             if (other.owner.id === this.owner.id) {
                 if (other.age < delay || this.age < delay) return 0;
-                if (this.canMerge && other.canMerge) return 2;
+                if (this.canMerge || other.canMerge) return 2;
                 return 1;
             }
             if (other.owner.team === this.owner.team && this.owner.team !== null)
