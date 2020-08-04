@@ -22,7 +22,7 @@ class Player {
         this.cellName = null;
         this.chatName = "Spectator";
         /** @type {number} */
-        this.cellRank = 1;
+        this.cellRank = 0;
         /** @type {string} */
         this.cellSkin = null;
         /** @type {number} */
